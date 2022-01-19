@@ -38,7 +38,32 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    const arr = []
+    for(let i=0; i < expr.length; i+= 10){
+      arr.push(expr.slice(i, i + 10));
+    }
+  
+    const mapped = arr.map(el => el.split(''));
+    mapped.forEach(el => {
+      while(el[0] == 0){
+        el.shift()
+      }
+    })
+  
+  
+    const arr1 =  mapped.map(el => el.join(''));
+    const str1 = arr1.join(',');
+    const reDot = /10/g;
+    const re1 = /11/g;
+    const reIvan = /\*\*\*\*\*\*\*\*\*\*/g
+  
+    const dottedStr = str1.replace(reDot, '.');
+    const morseStr = dottedStr.replace(re1, '-');
+    const ivanStr = morseStr.replace(reIvan, '-----,-----,-----')
+    const arrMorse = ivanStr.split(',');
+    const strDec = arrMorse.map(el => el = MORSE_TABLE[el]).join('');
+    const re2 = /000/g;
+    return decoded = strDec.replace(re2, ' ')
 }
 
 module.exports = {
